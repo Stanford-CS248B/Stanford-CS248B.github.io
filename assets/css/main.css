@@ -52,11 +52,15 @@ body A:hover
 /* The bar itself stays full width so its background reaches both edges;
    .topbar_inner below holds the links to the same measure as the page body. */
 .topbar {
-   height: 22px;
+   /* min-height rather than height: with four nav items plus the year
+      indicator, the bar wraps onto a second line on narrow screens and has to
+      be able to grow instead of clipping into its own bottom border. */
+   min-height: 22px;
    color: #ffffff;
    background: #c02020;
    border-bottom: #f44000 4px solid;
    padding-top: 2px;
+   padding-bottom: 2px;
    font-size: 10pt;
 }
 
@@ -67,14 +71,14 @@ body A:hover
 
 .topbar_left
 {
-   float: left;
    padding-right: 16px;
 }
 
 .topbar_right
 {
     text-align: right;
-    float: right;
+    /* pushed to the far edge; floats do not apply inside the flex row below */
+    margin-left: auto;
 }
 
 .ta-name
@@ -201,6 +205,15 @@ label textarea
  * For home page, course info page, etc.
  ***************************************************************************************
  */
+
+/* Flex rather than floats, so the nav wraps cleanly onto a second row on a
+   phone and the bar grows to contain it. */
+.topbar_inner
+{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+}
 
 /* One measure, used by the page body and by the topbar's inner wrapper, so
    the nav links line up with the content underneath them. 800px of content
