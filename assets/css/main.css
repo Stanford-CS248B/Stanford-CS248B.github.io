@@ -49,14 +49,14 @@ body A:hover
     text-decoration: underline;
 }
 
+/* The bar itself stays full width so its background reaches both edges;
+   .topbar_inner below holds the links to the same measure as the page body. */
 .topbar {
    height: 22px;
    color: #ffffff;
    background: #c02020;
    border-bottom: #f44000 4px solid;
    padding-top: 2px;
-   padding-right: 12px;
-   padding-left: 12px;
    font-size: 10pt;
 }
 
@@ -202,10 +202,13 @@ label textarea
  ***************************************************************************************
  */
 
-.home_container
+/* One measure, used by the page body and by the topbar's inner wrapper, so
+   the nav links line up with the content underneath them. 800px of content
+   plus the gutters keeps the desktop measure unchanged, while narrow screens
+   reflow instead of being scaled down to fit. */
+.home_container,
+.topbar_inner
 {
-    /* 800px of content plus the gutters, so the desktop measure is unchanged
-       while narrow screens reflow instead of being scaled down to fit. */
     max-width: 824px;
     margin-left: auto;
     margin-right: auto;
