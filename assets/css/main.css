@@ -18,7 +18,8 @@ body {
   font-weight: 400;
 }
 
-td
+td,
+th
 {
     /* NOTE(kayvonf): keep this consistent with the body element above.
        It's very annoying how <td> doesn't inherent from it's container */
@@ -26,6 +27,15 @@ td
     font-family: open-sans, sans-serif;
     font-style: normal;
     font-weight: 400;
+}
+
+/* Column headers stay bold and left aligned, matching the <b> markup they
+   replaced. Row headers (the date column) keep body weight, so promoting the
+   dates to <th> changes semantics without changing appearance. */
+th[scope="col"]
+{
+    font-weight: 700;
+    text-align: left;
 }
 
 body A {
@@ -194,9 +204,14 @@ label textarea
 
 .home_container
 {
-    width: 800px;
+    /* 800px of content plus the gutters, so the desktop measure is unchanged
+       while narrow screens reflow instead of being scaled down to fit. */
+    max-width: 824px;
     margin-left: auto;
     margin-right: auto;
+    padding-left: 12px;
+    padding-right: 12px;
+    box-sizing: border-box;
 }
 
 .main_title, .home_title, .feed_title, .playlist_title
@@ -256,7 +271,8 @@ label textarea
     margin-bottom: 15px;
 }
 
-td.schedule_date
+td.schedule_date,
+th.schedule_date
 {
     vertical-align: top;
     width: 100px;
@@ -264,7 +280,8 @@ td.schedule_date
     padding-right: 30px;
 }
 
-td.schedule_lecture
+td.schedule_lecture,
+th.schedule_lecture
 {
     vertical-align: top;
     padding-bottom: .6em;
@@ -1064,3 +1081,100 @@ p code {
     border: #c0c0c0 1px solid;
 }
 */
+
+/*
+ * *************************************************************************************
+ * Responsive behaviour and accessibility helpers
+ ***************************************************************************************
+ */
+
+/* Real headings replaced presentational divs. The divs carried no margins, so
+   drop the user-agent heading margins to keep the vertical rhythm identical. */
+h1.home_title,
+p.home_title,
+h2.overview_main_item
+{
+    margin: 0;
+}
+
+/* Names a table for assistive technology without repeating the section
+   heading on screen. */
+.visually_hidden
+{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+/* Media must never force the page wider than the screen. */
+.home_container img
+{
+    max-width: 100%;
+    height: auto;
+}
+
+.video_embed
+{
+    display: block;
+    width: 100%;
+    max-width: 648px;
+    aspect-ratio: 648 / 420;
+    height: auto;
+    border: 0;
+}
+
+/* Staff entries sit two per row, then stack once that no longer fits. These
+   were inline widths, which a media query cannot override. */
+.staff_card
+{
+    width: 360px;
+    float: left;
+}
+
+.staff_photo
+{
+    float: left;
+    margin-right: 20px;
+    border: #808080 1px solid;
+}
+
+/* A wide grid scrolls inside its own box rather than widening the whole page. */
+.table_scroll
+{
+    overflow-x: auto;
+}
+
+/* Compact grid used by the late-penalty scale. */
+.penalty_table td,
+.penalty_table th
+{
+    padding: 3px 16px 3px 0px;
+}
+
+@media (max-width: 800px)
+{
+    .staff_card
+    {
+        width: 100%;
+        float: none;
+    }
+}
+
+@media (max-width: 520px)
+{
+    .indented_block
+    {
+        padding-left: 0px;
+    }
+
+    td.schedule_date,
+    th.schedule_date
+    {
+        width: auto;
+        padding-right: 14px;
+    }
+}
