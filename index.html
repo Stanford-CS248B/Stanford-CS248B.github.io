@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+
+<!--
+  Site root: thin redirect to the current offering.
+  To switch years, change the three occurrences of the target path below.
+-->
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="refresh" content="0; url=/autumn25/">
+  <title>Stanford CS248B</title>
+  <link rel="icon" type="image/png" href="assets/images/favicon/stanford_logo.png">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <script>
+    (function () {
+      var target = '/autumn25/';
+      if (window.location && window.location.pathname !== target) {
+        window.location.replace(target);
+      }
+    })();
+  </script>
+</head>
+
+<body>
+  <div class="home_container">
+    <p>Redirecting to the current CS248B course page. If nothing happens, follow
+      <a href="/autumn25/">this link</a>.</p>
+  </div>
+</body>
+
+</html>
