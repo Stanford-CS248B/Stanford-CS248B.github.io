@@ -12,7 +12,11 @@
   TODO before going live:
     [ ] Confirm remaining TAs (Zhehao Li carried over as expected-returning);
         template for extra TAs is preserved in a comment below
-    [ ] Confirm the late-day policy and grade breakdown carried over from F25
+    [ ] Rewrite the grade breakdown: a final exam is new for F26, so the P1-P4 25% split
+        carried over from F25 is wrong. Exam slot is Tue 12/08/2026, 3:30-6:30 PM
+        (registrar grid, classes starting 1:30 T/Th). Format must be announced by the
+        end of week 2, Fri 10/02/2026, and afterwards may only change to an option
+        already announced.
     [ ] Remove the robots noindex tag at launch
 -->
 
@@ -116,14 +120,65 @@
     <div class="overview_main_item overview_ruled_element">Assignments and Exams (What you'll be doing!)</div>
 
     <p><span class="italic_text">Programming assignments.</span> Students will complete four programming assignments.</p>
-    <p><span class="italic_text">Exams.</span> There will be no exams in this course.</p>
+    <!-- TODO: confirm the exam format and state it here. University policy requires the format to be
+         announced by the end of week 2 (Fri 10/02/2026); after that it may only be changed to an
+         option already announced. The 3:30-6:30 PM slot below is assigned by the registrar from the
+         T/Th 1:30 meeting pattern and is not ours to move. Room is not assigned by the registrar;
+         confirm with CS student services before listing one. -->
+    <p><span class="italic_text">Final exam.</span> CS248B has a final exam this year. The University has scheduled it
+      for <span class="bold_text">Tuesday, December 8, 2026, 3:30 to 6:30 PM</span>. The format will be announced within
+      the first two weeks of the quarter.</p>
 
-    <p><span class="italic_text">Late hand-in policy.</span>
-      Each student has a total of <span class="bold_text">9 late days for 4 programming assignments</span>. Using 1 late
-      day extends the deadline by 24 hours.
-      There is no limit on the number of late days per assignment. No assignment will be accepted for more than 9 days
-      after the deadline.
-      Late assignments will not be accepted if you are out of late days, so use the late days wisely!</p>
+    <p><span class="italic_text">Late submission policy.</span>
+      CS248B uses point deductions rather than "late days."</p>
+    <ul>
+      <li><span class="bold_text">Late penalty.</span> Each late day scales your score by 0.9. Work graded 85 that is
+        two days late scores 85 &times; 0.9<sup>2</sup> = 68.9.</li>
+      <li><span class="bold_text">Maximum lateness.</span> No assignment is accepted more than
+        <span class="bold_text">seven days</span> after its deadline. Later submissions receive no credit.</li>
+      <li><span class="bold_text">Partial days round up.</span> Any portion of a late day counts as a full day.</li>
+      <li><span class="bold_text">Upload grace.</span> Submissions within 30 minutes of the deadline are not counted
+        late. Renders and builds are large, so start your upload early. A slow upload on its own is not grounds for an
+        extension.</li>
+      <li><span class="bold_text">The last submission is the one we grade.</span> If you submit before the deadline and
+        then resubmit afterwards, the later timestamp determines lateness for the whole assignment. If you would rather
+        we grade your on-time version, do not resubmit.</li>
+      <li><span class="bold_text">Group submissions.</span> The penalty applies to the submission, so every member of a
+        group receives the same deduction.</li>
+      <li><span class="bold_text">Extensions.</span> If illness, a family emergency, or another serious disruption
+        affects your work, contact the instructor, before the deadline where possible and otherwise as soon as you are
+        able. Accommodations arranged through the Office of Accessibility Education are handled separately and are not
+        affected by this policy.</li>
+    </ul>
+
+    <table style="margin: 5px 0px 15px 0px;">
+      <tr>
+        <td style="padding: 3px 16px 3px 0;"><span class="bold_text">Days late</span></td>
+        <td style="padding: 3px 16px 3px 0;"><span class="bold_text">1</span></td>
+        <td style="padding: 3px 16px 3px 0;"><span class="bold_text">2</span></td>
+        <td style="padding: 3px 16px 3px 0;"><span class="bold_text">3</span></td>
+        <td style="padding: 3px 16px 3px 0;"><span class="bold_text">4</span></td>
+        <td style="padding: 3px 16px 3px 0;"><span class="bold_text">5</span></td>
+        <td style="padding: 3px 16px 3px 0;"><span class="bold_text">6</span></td>
+        <td style="padding: 3px 16px 3px 0;"><span class="bold_text">7</span></td>
+        <td style="padding: 3px 16px 3px 0;"><span class="bold_text">8+</span></td>
+      </tr>
+      <tr>
+        <td style="padding: 3px 16px 3px 0;"><span class="bold_text">Score kept</span></td>
+        <td style="padding: 3px 16px 3px 0;">90%</td>
+        <td style="padding: 3px 16px 3px 0;">81%</td>
+        <td style="padding: 3px 16px 3px 0;">72.9%</td>
+        <td style="padding: 3px 16px 3px 0;">65.6%</td>
+        <td style="padding: 3px 16px 3px 0;">59%</td>
+        <td style="padding: 3px 16px 3px 0;">53.1%</td>
+        <td style="padding: 3px 16px 3px 0;">47.8%</td>
+        <td style="padding: 3px 16px 3px 0;">0</td>
+      </tr>
+    </table>
+
+    <p>P0 is ungraded, so this policy does not apply to it. The final examination is governed by
+      <a href="https://studentservices.stanford.edu/more-resources/student-policies/examinations" target="_blank">University
+        examination policy</a>, not by this policy.</p>
 
     <div><span class="italic_text">Grade breakdown</span></div>
     <ul>
