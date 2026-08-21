@@ -1133,6 +1133,19 @@ h2.overview_main_item
     height: auto;
 }
 
+/* Student reels come in different shapes (Fall 2022 is nearly square, Fall
+   2023 is portrait), so cap both dimensions and let the browser preserve each
+   one's own aspect ratio rather than forcing them into a fixed box. */
+.reel
+{
+    display: block;
+    max-width: 100%;
+    max-height: 70vh;
+    height: auto;
+    margin-bottom: 10px;
+    background: #000000;
+}
+
 .video_embed
 {
     display: block;
