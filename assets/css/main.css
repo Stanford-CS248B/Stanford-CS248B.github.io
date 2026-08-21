@@ -110,6 +110,22 @@ body A:hover
     padding-left: 3em;
 }
 
+/* List items had no separation at all and inherited the tight default line
+   height, so multi-line bullets such as the late-submission policy ran
+   together. Space between items, and a looser line height inside each one so
+   a bullet that wraps is still readable. */
+.home_container li
+{
+    padding: .4em 0em;
+    line-height: 1.45;
+}
+
+.home_container ul
+{
+    margin-top: .4em;
+    margin-bottom: 1em;
+}
+
 h1
 {
     color: #000000;
