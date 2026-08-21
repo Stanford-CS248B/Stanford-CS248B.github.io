@@ -9,11 +9,15 @@ body {
   margin: 0px;
 
   color: #505050;
-  
-  font-size: 11pt;  
+
+  font-size: 11pt;
   font-family: open-sans, sans-serif;
   font-style: normal;
   font-weight: 400;
+
+  /* Was unset, so text ran at the browser default of roughly 1.2, which is
+     tight for 11pt body copy. */
+  line-height: 1.4;
 }
 
 td,
@@ -110,14 +114,11 @@ body A:hover
     padding-left: 3em;
 }
 
-/* List items had no separation at all and inherited the tight default line
-   height, so multi-line bullets such as the late-submission policy ran
-   together. Space between items, and a looser line height inside each one so
-   a bullet that wraps is still readable. */
+/* List items had no separation at all, so multi-line bullets such as the
+   late-submission policy ran together. Line height comes from body. */
 .home_container li
 {
     padding: .4em 0em;
-    line-height: 1.45;
 }
 
 .home_container ul
