@@ -128,7 +128,11 @@
         two days late scores 85 &times; 0.9<sup>2</sup> = 68.9.</li>
       <li><span class="bold_text">Maximum lateness.</span> No assignment is accepted more than
         <span class="bold_text">seven days</span> after its deadline. Later submissions receive no credit.</li>
-      <li><span class="bold_text">Partial days round up.</span> Any portion of a late day counts as a full day.</li>
+      <li><span class="bold_text">Partial late days allowed.</span> Lateness is measured in fractional days, not
+        rounded up. With a daily factor <i>P</i> = 0.9, work that is <i>D</i> days late is scaled by
+        <i>P</i><sup><i>D</i></sup>. The penalty grows smoothly rather than jumping at each 24-hour mark, so being
+        slightly over a deadline costs only a little: work submitted 1 hour late (<i>D</i> = 1/24) keeps
+        0.9<sup>1/24</sup> &asymp; 0.996 of its score.</li>
       <li><span class="bold_text">Upload grace.</span> Submissions within 30 minutes of the deadline are not counted
         late. A slow upload on its own is not grounds for an extension.</li>
       <li><span class="bold_text">The last submission is the one we grade.</span> If you submit before the deadline and
@@ -155,7 +159,7 @@
         <th scope="col">5</th>
         <th scope="col">6</th>
         <th scope="col">7</th>
-        <th scope="col">8+</th>
+        <th scope="col">over 7</th>
       </tr>
       <tr>
         <th scope="row">Score kept</th>
