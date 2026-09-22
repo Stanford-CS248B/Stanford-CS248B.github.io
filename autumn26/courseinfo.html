@@ -124,13 +124,16 @@
     <p><span class="italic_text">Late submission policy.</span>
       CS248B uses point deductions rather than "late days."</p>
     <ul>
-      <li><span class="bold_text">Late penalty.</span> Each late day scales your score by 0.9. Work graded 85 that is
-        two days late scores 85 &times; 0.9<sup>2</sup> = 68.9.</li>
-      <li><span class="bold_text">Partial late days allowed.</span> Lateness is measured in fractional days, not
-        rounded up. With a daily factor <i>P</i> = 0.9, work that is <i>D</i> days late is scaled by
-        <i>P</i><sup><i>D</i></sup>. The penalty grows smoothly rather than jumping at each 24-hour mark, so being
-        slightly over a deadline costs only a little: work submitted 1 hour late (<i>D</i> = 1/24) keeps
-        0.9<sup>1/24</sup> &asymp; 0.996 of its score.</li>
+      <li><span class="bold_text">Late penalty.</span> Late work is scaled by a daily penalty factor
+        <i>p</i> = 0.9. If your submission would earn grade <i>g</i> on time and you submit it <i>d</i> days late,
+        you receive <i>g</i> &times; <i>p</i><sup><i>d</i></sup>. For example, work graded 85 that is two days late
+        scores 85 &times; 0.9<sup>2</sup> = 85 &times; 0.81 = 68.85, or 68.9. The penalty is a fraction of your
+        grade, not points taken off: two days late costs 19% of whatever the work earned (1 &minus; 0.81 = 0.19),
+        not a flat 20 points.</li>
+      <li><span class="bold_text">Partial late days allowed.</span> The number of days late, <i>d</i>, is measured in
+        fractional days and is not rounded up. The penalty therefore grows smoothly rather than jumping at each
+        24-hour mark, and being slightly over a deadline costs only a little: work submitted 1 hour late has
+        <i>d</i> = 1/24 and keeps 0.9<sup>1/24</sup> &asymp; 0.996 of its grade, so an 85 becomes about 84.6.</li>
       <li><span class="bold_text">Maximum lateness.</span> No assignment is accepted more than
         <span class="bold_text">seven days</span> after its deadline. Later submissions receive no credit.</li>
       <li><span class="bold_text">The last submission is the one we grade.</span> If you submit before the deadline and
