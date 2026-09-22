@@ -10,13 +10,14 @@ body {
 
   color: #505050;
 
-  font-size: 11pt;
+  font-size: 12pt;
   font-family: open-sans, sans-serif;
   font-style: normal;
   font-weight: 400;
 
-  /* Was unset, so text ran at the browser default of roughly 1.2, which is
-     tight for 11pt body copy. */
+  /* 12pt is 16px, the browser default text size; it was 11pt (14.7px), small
+     enough that pages needed zooming. Line height was unset, so text ran at
+     the browser default of roughly 1.2, which is tight for body copy. */
   line-height: 1.4;
 }
 
@@ -25,7 +26,7 @@ th
 {
     /* NOTE(kayvonf): keep this consistent with the body element above.
        It's very annoying how <td> doesn't inherent from it's container */
-    font-size: 11pt;
+    font-size: 12pt;
     font-family: open-sans, sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -63,7 +64,7 @@ body A:hover
    border-bottom: #f44000 4px solid;
    padding-top: 2px;
    padding-bottom: 2px;
-   font-size: 10pt;
+   font-size: 11pt;
 }
 
 .topbar A
@@ -106,7 +107,7 @@ body A:hover
 
 .small_text
 {
-    font-size: 9pt;
+    font-size: 10pt;
 }
 
 .indented_block
@@ -269,7 +270,7 @@ th.schedule_week
 h3.lecture_title
 {
     color: #000000;
-    font-size: 11pt;
+    font-size: 12pt;
     font-weight: 700;
     margin: 0;
     padding-top: .7em;
@@ -277,7 +278,7 @@ h3.lecture_title
 
 .lecture_date
 {
-    font-size: 9pt;
+    font-size: 10pt;
     font-weight: 400;
     color: #707070;
     padding-left: .4em;
@@ -285,7 +286,7 @@ h3.lecture_title
 
 .lecture_summary
 {
-    font-size: 9.5pt;
+    font-size: 10.5pt;
     color: #606060;
     margin: .1em 0 0 0;
 }
@@ -389,6 +390,12 @@ h2.overview_ruled_element
 
 @media (max-width: 520px)
 {
+    /* Tighter nav spacing keeps the four buttons on one row at 11pt. */
+    .topbar_left
+    {
+        padding-right: 10px;
+    }
+
     .indented_block
     {
         padding-left: 0px;
