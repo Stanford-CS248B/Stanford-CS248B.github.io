@@ -299,6 +299,14 @@ h2.overview_main_item
     margin: 0;
 }
 
+/* ...except the rule's bottom margin, which the reset above had wiped out.
+   It collapses with a following paragraph's own margin, so it only shows where
+   a section opens with something else, such as the staff photos. */
+h2.overview_ruled_element
+{
+    margin-bottom: 15px;
+}
+
 /* Names a table for assistive technology without repeating the section
    heading on screen. */
 .visually_hidden
