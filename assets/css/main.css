@@ -264,6 +264,32 @@ th.schedule_week
     white-space: nowrap;
 }
 
+/* F26 lectures page: one heading per lecture with its date and, once the
+   slides are posted, a short summary of what it covered. */
+h3.lecture_title
+{
+    color: #000000;
+    font-size: 11pt;
+    font-weight: 700;
+    margin: 0;
+    padding-top: .7em;
+}
+
+.lecture_date
+{
+    font-size: 9pt;
+    font-weight: 400;
+    color: #707070;
+    padding-left: .4em;
+}
+
+.lecture_summary
+{
+    font-size: 9.5pt;
+    color: #606060;
+    margin: .1em 0 0 0;
+}
+
 /* Real headings replaced presentational divs. The divs carried no margins, so
    drop the user-agent heading margins to keep the vertical rhythm identical. */
 h1.home_title,
