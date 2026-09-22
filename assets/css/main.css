@@ -249,6 +249,21 @@ th.schedule_week
     padding-right: 20px;
 }
 
+/* The assignments table has five columns, so its date columns shrink to fit
+   their contents instead of taking the lecture schedule's fixed 100px. */
+.assignments_table td.schedule_date,
+.assignments_table th.schedule_date
+{
+    width: auto;
+    padding-right: 18px;
+}
+
+/* Dates never break mid-value; headers such as "Alpha due" may wrap on a phone. */
+.assignments_table td.schedule_date
+{
+    white-space: nowrap;
+}
+
 /* Real headings replaced presentational divs. The divs carried no margins, so
    drop the user-agent heading margins to keep the vertical rhythm identical. */
 h1.home_title,
