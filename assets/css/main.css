@@ -224,6 +224,7 @@ td.schedule_lecture,
 th.schedule_lecture
 {
     vertical-align: top;
+    text-align: left;       /* <th> centres by default; row headers must not */
     padding-bottom: .6em;
 }
 
