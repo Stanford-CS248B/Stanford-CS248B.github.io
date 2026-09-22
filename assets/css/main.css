@@ -359,6 +359,13 @@ h2.overview_ruled_element
     float: left;
 }
 
+/* F26 stacks one card per row, so its cards can be wider and keep an office
+   hours line whole beside the photo. */
+.staff_card_wide
+{
+    width: 460px;
+}
+
 .staff_photo
 {
     float: left;
@@ -381,7 +388,8 @@ h2.overview_ruled_element
 
 @media (max-width: 800px)
 {
-    .staff_card
+    .staff_card,
+    .staff_card_wide
     {
         width: 100%;
         float: none;
