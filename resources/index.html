@@ -3,17 +3,22 @@
 
 <!--
   Year-independent reference material for students: reading, references, and
-  setup notes that outlive a single offering. Kept at the site root rather
-  than inside a year directory so it does not have to be copied and
-  re-curated every autumn, and grown over the quarter as material is added.
+  learning tools. Kept at the site root rather than inside a year directory,
+  and grown over the quarter.
+
+  Process (agreed with Doug 2026-10-01):
+    - The working draft, with Doug's notes and items held back, is
+      Resources.md in the course Dropbox folder (never committed).
+    - Readings for a lecture are added here AFTER that lecture is given, one
+      lecture at a time. Lecture 5 (Collision Detection II, 10/6) is drafted
+      and waiting.
+    - Every entry must be verified before it goes up: authors, title, venue,
+      year, and DOI from the Crossref record; book edition and year from the
+      publisher page the DOI resolves to; every URL loaded; free PDFs only when
+      the authors host or link them or the license allows. No page numbers or
+      volumes, so there are fewer fields to get wrong.
 
   Student showcase and Pinball reels moved to /highlights/ on 2026-09-23.
-  The lone Interactive Demos entry (the F25 P0 starter sketch) was dropped:
-  the demos all live in the course's OpenProcessing class. A demos link may
-  be added here later.
-
-  TODO: Reference Material and Tools are still empty scaffolding and say so in
-  the page text, so nothing here claims a resource that does not exist yet.
 -->
 
 <head>
@@ -39,22 +44,184 @@
     <p style="font-size: 12pt; padding: 10px 0px 0px 0px;" class="home_title">Stanford CS248B</p>
     <h1 style="padding-top: 0px; padding-bottom: 5px;" class="home_title">Resources</h1>
 
-    <p>References and other material to help with the course, added over the quarter. For a specific
-      offering's schedule, slides, and assignments, see the
+    <p>References and learning tools for physics-based animation and simulation. General material comes
+      first, followed by readings for each lecture, which are added after the lecture is given. For a
+      specific offering's schedule, slides, and assignments, see the
       <a href="../years/index.html">list of course offerings</a>.</p>
 
-    <h2 class="overview_main_item overview_ruled_element">Reference Material</h2>
+    <h2 class="overview_main_item overview_ruled_element">General</h2>
 
-    <p>There is no required textbook for CS248B. Recommended reading and reference material will be
-      collected here.</p>
+    <h3 class="resource_group">Free course notes and books</h3>
+    <ul>
+      <li>Andrew Witkin and David Baraff. <a href="https://www.cs.cmu.edu/~baraff/sigcourse/" target="_blank"
+          rel="noopener"><i>Physically Based Modeling: Principles and Practice</i></a>. SIGGRAPH 1997 course notes.<br>
+        <span class="resource_note">The classic introduction, with short chapters on differential equations, particle
+          dynamics, implicit methods, constrained dynamics, and rigid bodies.</span></li>
+      <li>Daniel Shiffman. <a href="https://natureofcode.com/" target="_blank" rel="noopener"><i>The Nature of Code:
+            Simulating Natural Systems with JavaScript</i></a>. No Starch Press, 2024. Free to read online.<br>
+        <span class="resource_note">All examples are in p5.js, the library we use. Chapters on vectors, forces,
+          oscillation, particle systems, and physics libraries.</span></li>
+      <li>Justin Solomon. <a href="https://people.csail.mit.edu/jsolomon/share/book/numerical_book.pdf" target="_blank"
+          rel="noopener"><i>Numerical Algorithms</i></a>. A K Peters/CRC Press, 2015. Free PDF from the author.<br>
+        <span class="resource_note">Chapter 15 of the PDF, Ordinary Differential Equations, covers the integrators
+          used in this course.</span></li>
+      <li>Theodore Kim and David Eberle. <a href="https://www.tkim.graphics/DYNAMIC_DEFORMABLES/" target="_blank"
+          rel="noopener"><i>Dynamic Deformables: Implementation and Production Practicalities</i></a>. SIGGRAPH 2020
+        and 2022 Courses (ACM: <a href="https://doi.org/10.1145/3388769.3407490" target="_blank" rel="noopener">2020</a>,
+        <a href="https://doi.org/10.1145/3532720.3535628" target="_blank" rel="noopener">2022</a>).<br>
+        <span class="resource_note">Notes and code for deformable simulation as practiced at Pixar.</span></li>
+      <li>Eftychios Sifakis and Jernej Barbič. <a href="https://viterbi-web.usc.edu/~jbarbic/femdefo/" target="_blank"
+          rel="noopener"><i>FEM Simulation of 3D Deformable Solids: A Practitioner's Guide to Theory, Discretization
+            and Model Reduction</i></a>. SIGGRAPH 2012 Courses
+        (<a href="https://doi.org/10.1145/2343483.2343501" target="_blank" rel="noopener">ACM</a>).</li>
+      <li>Robert Bridson and Matthias Müller-Fischer. <a href="https://www.cs.ubc.ca/~rbridson/fluidsimulation/"
+          target="_blank" rel="noopener"><i>Fluid Simulation for Computer Animation</i></a>. SIGGRAPH 2007 course
+        notes.<br>
+        <span class="resource_note">Free notes that later grew into Bridson's book, listed below.</span></li>
+    </ul>
 
-    <!-- TODO: papers, book chapters, and external references. -->
+    <h3 class="resource_group">Books</h3>
+    <ul>
+      <li>Christer Ericson. <a href="https://doi.org/10.1201/b14581" target="_blank" rel="noopener"><i>Real-Time
+            Collision Detection</i></a>. CRC Press, 2004.<br>
+        <span class="resource_note">The standard practical reference on bounding volumes, spatial partitioning,
+          intersection tests, and robustness.</span></li>
+      <li>Robert Bridson. <a href="https://doi.org/10.1201/9781315266008" target="_blank" rel="noopener"><i>Fluid
+            Simulation for Computer Graphics</i></a>, 2nd edition. A K Peters/CRC Press, 2015.</li>
+    </ul>
 
-    <h2 class="overview_main_item overview_ruled_element">Tools and Setup</h2>
+    <h3 class="resource_group">Surveys and tutorials</h3>
+    <p class="resource_note">On publisher sites; these may need Stanford library access.</p>
+    <ul>
+      <li>Adam W. Bargteil and Tamar Shinar. <a href="https://doi.org/10.1145/3305366.3328050" target="_blank"
+          rel="noopener"><i>An Introduction to Physics-Based Animation</i></a>. SIGGRAPH 2019 Courses.</li>
+      <li>Andrew Nealen, Matthias Müller, Richard Keiser, Eddy Boxerman, and Mark Carlson.
+        <a href="https://doi.org/10.1111/j.1467-8659.2006.01000.x" target="_blank" rel="noopener"><i>Physically
+            Based Deformable Models in Computer Graphics</i></a>. Computer Graphics Forum, 2006.</li>
+      <li>Jan Bender, Matthias Müller, Miguel A. Otaduy, Matthias Teschner, and Miles Macklin.
+        <a href="https://doi.org/10.1111/cgf.12346" target="_blank" rel="noopener"><i>A Survey on Position-Based
+            Simulation Methods in Computer Graphics</i></a>. Computer Graphics Forum, 2014.</li>
+      <li>Matthias Müller, Bruno Heidelberger, Marcus Hennix, and John Ratcliff.
+        <a href="https://doi.org/10.1016/j.jvcir.2007.01.005" target="_blank" rel="noopener"><i>Position Based
+            Dynamics</i></a>. Journal of Visual Communication and Image Representation, 2007.</li>
+    </ul>
 
-    <p>Setup notes for the software used in the programming assignments will be collected here.</p>
+    <h3 class="resource_group">Websites, videos, and talks</h3>
+    <ul>
+      <li>Christopher Batty. <a href="https://www.physicsbasedanimation.com/" target="_blank"
+          rel="noopener"><i>Physics-Based Animation</i></a> blog.<br>
+        <span class="resource_note">Lists new papers by conference, such as SIGGRAPH and SIGGRAPH Asia, and catalogues
+          people and software in the field. Good for browsing what is current in research.</span></li>
+      <li>Matthias Müller. <a href="https://matthias-research.github.io/pages/tenMinutePhysics/index.html"
+          target="_blank" rel="noopener"><i>Ten Minute Physics</i></a>
+        (<a href="https://www.youtube.com/@tenminutephysics" target="_blank" rel="noopener">YouTube</a>).<br>
+        <span class="resource_note">Short videos, each with a small JavaScript demo that runs in the browser.</span></li>
+      <li>Erin Catto. <a href="https://box2d.org/publications/" target="_blank" rel="noopener"><i>Box2D
+            publications</i></a>.<br>
+        <span class="resource_note">GDC talks by the author of the Box2D physics engine, with slides and some source
+          code, on integration, constraints, contact, GJK distance, continuous collision, and bounding volume
+          hierarchies.</span></li>
+    </ul>
 
-    <!-- TODO: toolchain and environment setup notes. -->
+    <h3 class="resource_group">Programming tools</h3>
+    <ul>
+      <li><a href="https://p5js.org/" target="_blank" rel="noopener">p5.js</a> and its
+        <a href="https://p5js.org/reference/" target="_blank" rel="noopener">reference documentation</a>.</li>
+      <li><a href="https://openprocessing.org/" target="_blank" rel="noopener">OpenProcessing</a>.</li>
+      <li><a href="https://www.shadertoy.com/" target="_blank" rel="noopener">Shadertoy</a>, co-founded by Inigo
+        Quilez and Pol Jeremias, a site for creating and sharing real-time graphics programs. Many SDF and
+        ray-marching examples run live in the browser.</li>
+      <li><a href="https://graphtoy.com/" target="_blank" rel="noopener">Graphtoy</a>, Inigo Quilez's browser tool
+        for graphing functions. Handy for trying out SDF formulas and boolean combinations.</li>
+    </ul>
+
+    <h2 class="overview_main_item overview_ruled_element">By Lecture (Fall 2026)</h2>
+
+    <h3 class="resource_group">Lecture 2: Particle Systems and ODEs</h3>
+    <ul>
+      <li>Witkin and Baraff, <a href="https://www.cs.cmu.edu/~baraff/sigcourse/" target="_blank"
+          rel="noopener"><i>Physically Based Modeling</i></a>: the chapters "Differential Equation Basics", "Particle
+        Dynamics", and "Implicit Methods".</li>
+      <li>Solomon, <a href="https://people.csail.mit.edu/jsolomon/share/book/numerical_book.pdf" target="_blank"
+          rel="noopener"><i>Numerical Algorithms</i></a>: Chapter 15 of the PDF, Ordinary Differential Equations.</li>
+      <li>Shiffman, <a href="https://natureofcode.com/" target="_blank" rel="noopener"><i>The Nature of Code</i></a>:
+        Chapter 2 (Forces) and Chapter 4 (Particle Systems), in p5.js.</li>
+      <li>John Denker. <a href="https://www.av8n.com/physics/symplectic-integrator.htm" target="_blank"
+          rel="noopener"><i>Basic Properties of a Symplectic Integrator</i></a>.<br>
+        <span class="resource_note">A visual explanation of why a symplectic integrator behaves better than a
+          non-symplectic one.</span></li>
+      <li>Erin Catto, "Numerical Integration" (GDC 2009) and "Numerical Methods" (GDC 2015), on the
+        <a href="https://box2d.org/publications/" target="_blank" rel="noopener">Box2D publications</a> page.</li>
+      <li>William T. Reeves. <a href="https://doi.org/10.1145/357318.357320" target="_blank" rel="noopener"><i>Particle
+            Systems: A Technique for Modeling a Class of Fuzzy Objects</i></a>. ACM Transactions on Graphics, 1983.</li>
+      <li>Andrew P. Witkin and Paul S. Heckbert. <a href="https://doi.org/10.1145/192161.192227" target="_blank"
+          rel="noopener"><i>Using Particles to Sample and Control Implicit Surfaces</i></a>. SIGGRAPH '94.</li>
+    </ul>
+
+    <h3 class="resource_group">Lecture 3: Resolving Particle Collisions</h3>
+    <ul>
+      <li>Robert Bridson, Ronald Fedkiw, and John Anderson. <a href="https://doi.org/10.1145/566654.566623"
+          target="_blank" rel="noopener"><i>Robust Treatment of Collisions, Contact and Friction for Cloth
+            Animation</i></a>. ACM Transactions on Graphics, 2002.</li>
+      <li>Inigo Quilez on signed distance functions:
+        <ul>
+          <li><a href="https://iquilezles.org/articles/distfunctions2d/" target="_blank" rel="noopener">2D
+              primitives</a>, with live demos of all of them in his
+            <a href="https://www.shadertoy.com/playlist/MXdSRf" target="_blank" rel="noopener">Shadertoy
+              playlist</a>.</li>
+          <li><a href="https://iquilezles.org/articles/distfunctions/" target="_blank" rel="noopener">3D
+              primitives</a>, with formulas for combining them, and a
+            <a href="https://www.shadertoy.com/playlist/43cXRl" target="_blank" rel="noopener">Shadertoy playlist</a>
+            of the primitives.</li>
+          <li><a href="https://iquilezles.org/articles/raymarchingdf/" target="_blank" rel="noopener">Ray marching
+              SDFs</a>.</li>
+        </ul>
+      </li>
+      <li>John C. Hart. <a href="https://doi.org/10.1007/s003710050084" target="_blank" rel="noopener"><i>Sphere
+            Tracing: A Geometric Method for the Antialiased Ray Tracing of Implicit Surfaces</i></a>. The Visual
+        Computer, 1996.<br>
+        <span class="resource_note">The basis of the ray-marched ball collisions in P1.</span></li>
+      <li>Matthias Müller, Ten Minute Physics, <a href="https://matthias-research.github.io/pages/tenMinutePhysics/04-pinball.html"
+          target="_blank" rel="noopener"><i>How to write a pinball simulation</i></a>
+        (<a href="https://youtu.be/NhVUCsXp-Uo" target="_blank" rel="noopener">video</a>,
+        <a href="https://github.com/matthias-research/pages/blob/master/tenMinutePhysics/04-pinball.html"
+          target="_blank" rel="noopener">code</a>).<br>
+        <span class="resource_note">Ball-capsule collisions, collisions against boundaries made of line segments, and
+          touch and mouse input. A useful companion to P1.</span></li>
+    </ul>
+
+    <h3 class="resource_group">Lecture 4: Collision Detection I</h3>
+    <ul>
+      <li>Ericson, <a href="https://doi.org/10.1201/b14581" target="_blank" rel="noopener"><i>Real-Time Collision
+            Detection</i></a>.</li>
+      <li>Real-Time Rendering, <a href="https://www.realtimerendering.com/intersections.html" target="_blank"
+          rel="noopener"><i>Object/Object Intersection</i></a>.<br>
+        <span class="resource_note">A grid of intersection tests for common shapes, pointing to code and
+          references.</span></li>
+      <li>Jonathan Richard Shewchuk. <a href="https://doi.org/10.1007/pl00009321" target="_blank" rel="noopener"><i>Adaptive
+            Precision Floating-Point Arithmetic and Fast Robust Geometric Predicates</i></a>. Discrete &amp;
+        Computational Geometry, 1997.<br>
+        <span class="resource_note">The exact orientation tests mentioned in lecture.
+          <a href="https://www.cs.cmu.edu/~quake/robust.html" target="_blank" rel="noopener">Code and an
+            overview</a>.</span></li>
+      <li>Stefan Gottschalk, Ming C. Lin, and Dinesh Manocha. <a href="https://doi.org/10.1145/237170.237244"
+          target="_blank" rel="noopener"><i>OBBTree: A Hierarchical Structure for Rapid Interference
+            Detection</i></a>. SIGGRAPH 96.<br>
+        <span class="resource_note">The source of the 15-axis separating axis test for OBBs.</span></li>
+      <li>David Eberly. <a href="https://www.geometrictools.com/Documentation/DynamicCollisionDetection.pdf"
+          target="_blank" rel="noopener"><i>Dynamic Collision Detection using Oriented Bounding Boxes</i></a>.
+        Geometric Tools, 1999 (revised 2008). Free PDF.</li>
+      <li>J. T. Klosowski, M. Held, J. S. B. Mitchell, H. Sowizral, and K. Zikan.
+        <a href="https://doi.org/10.1109/2945.675649" target="_blank" rel="noopener"><i>Efficient Collision Detection
+            Using Bounding Volume Hierarchies of k-DOPs</i></a>. IEEE Transactions on Visualization and Computer
+        Graphics, 1998.</li>
+      <li>Gino van den Bergen. <a href="https://doi.org/10.1080/10867651.1997.10487480" target="_blank"
+          rel="noopener"><i>Efficient Collision Detection of Complex Deformable Models using AABB Trees</i></a>.
+        Journal of Graphics Tools, 1997.</li>
+      <li>Philip M. Hubbard. <a href="https://doi.org/10.1145/231731.231732" target="_blank" rel="noopener"><i>Approximating
+            Polyhedra with Spheres for Time-Critical Collision Detection</i></a>. ACM Transactions on Graphics,
+        1996.</li>
+    </ul>
 
     <div>&nbsp;</div>
   </div>

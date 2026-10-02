@@ -266,8 +266,10 @@ th.schedule_week
 }
 
 /* F26 lectures page: one heading per lecture with its date and, once the
-   slides are posted, a short summary of what it covered. */
-h3.lecture_title
+   slides are posted, a short summary of what it covered. The resources page
+   uses the same heading for its groups. */
+h3.lecture_title,
+h3.resource_group
 {
     color: #000000;
     font-size: 12pt;
@@ -288,6 +290,18 @@ h3.lecture_title
 {
     font-size: 10.5pt;
     color: #606060;
+    margin: .1em 0 0 0;
+}
+
+/* Resources page: a short gray note under an entry, or under a group heading. */
+.resource_note
+{
+    font-size: 10.5pt;
+    color: #606060;
+}
+
+p.resource_note
+{
     margin: .1em 0 0 0;
 }
 
