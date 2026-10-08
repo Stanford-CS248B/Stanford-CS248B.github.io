@@ -85,15 +85,24 @@
     </div>
 
     <div class="lecture_entry">
-      <h3 class="lecture_title">Lecture 6: Deformable Models I <span class="lecture_date">10/8</span></h3>
+      <h3 class="lecture_title">Lecture 6: <a
+          href="https://www.dropbox.com/scl/fi/gcp4689rmqoaz48x2ubfx/F26_05_Deformable.pdf?rlkey=titycuugy9xx46txgtwto0fgq&dl=0"
+          target="_blank" rel="noopener">Deformable Models I</a> <span class="lecture_date">10/8</span></h3>
+      <p class="lecture_summary">Builds deformation forces from potential energy, generalizing Hooke's law from a scalar displacement to soft constraint functions C(p), so that any energy of the form one half k times the norm of C squared yields forces through the constraint Jacobian, with damping handled the same way. Then works through the derivatives those forces need, from gradients of a constant, a particle position and a position difference to gradients of distance, distance squared, distance raised to a power, and the unit distance vector.</p>
     </div>
 
     <div class="lecture_entry">
-      <h3 class="lecture_title">Lecture 7: Deformable Models II <span class="lecture_date">10/13</span></h3>
+      <h3 class="lecture_title">Lecture 7: <a
+          href="https://www.dropbox.com/scl/fi/gcp4689rmqoaz48x2ubfx/F26_05_Deformable.pdf?rlkey=titycuugy9xx46txgtwto0fgq&dl=0"
+          target="_blank" rel="noopener">Deformable Models II</a> <span class="lecture_date">10/13</span></h3>
+      <p class="lecture_summary">Applies the generalized spring machinery to concrete forces: zero and finite rest-length linear springs with damping, and hair and cloth bending energies built on bending angles, including why naive symbolic differentiation of a bending energy balloons into unusable expressions. Then turns to P2 Attack of the Blobs, adding area springs that resist compression and deriving the area of a 2D polygon along with its gradient.</p>
     </div>
 
     <div class="lecture_entry">
-      <h3 class="lecture_title">Lecture 8: Deformable Models III <span class="lecture_date">10/15</span></h3>
+      <h3 class="lecture_title">Lecture 8: <a
+          href="https://www.dropbox.com/scl/fi/gcp4689rmqoaz48x2ubfx/F26_05_Deformable.pdf?rlkey=titycuugy9xx46txgtwto0fgq&dl=0"
+          target="_blank" rel="noopener">Deformable Models III</a> <span class="lecture_date">10/15</span></h3>
+      <p class="lecture_summary">Treats deformable collision detection as root finding, with point-edge collinearity in 2D, point-triangle and edge-edge coplanarity in 3D, and the robust quadratic and polynomial solvers these need. Then resolves the collisions using barycentric impulses set by a restitution hypothesis, inverse-mass filtering for pinned particles, penalty forces and signed-distance-field position correction, and an iterative impulse loop inside a symplectic Euler integrator, closing on broad-phase bounds and implicit integration for stiff systems.</p>
     </div>
 
     <div class="lecture_entry">
