@@ -12,6 +12,15 @@
     - Readings for a lecture are added here AFTER that lecture is given, one
       lecture at a time. Lecture 5 went up on 2026-10-01, ahead of its 10/6
       lecture, at Doug's request.
+    - From the deformable material on, readings are grouped by topic rather
+      than per lecture, at Doug's request (2026-10-15): "Deformable Models"
+      covers Lectures 6 and 7, and "Deformable Collision Processing" will
+      cover Lectures 8 and 9. The collision section is held until Doug
+      produces that deck; the planned entries sit in Resources.md.
+    - Links rot, so prefer more than one address per entry where possible
+      (Doug, 2026-10-15). The Pixar address for the 2001 course notes already
+      redirects to a general Pixar page, so that entry uses Internet Archive
+      copies.
     - Every entry must be verified before it goes up: authors, title, venue,
       year, and DOI from the Crossref record; book edition and year from the
       publisher page the DOI resolves to; every URL loaded; free PDFs only when
@@ -271,6 +280,47 @@
         (<a href="https://www.cs.columbia.edu/cg/adonis/" target="_blank" rel="noopener">project page</a>).</li>
       <li>Huamin Wang. <a href="https://doi.org/10.1145/2601097.2601114" target="_blank" rel="noopener"><i>Defending Continuous Collision
             Detection against Errors</i></a>. ACM Transactions on Graphics, 2014.</li>
+    </ul>
+
+    <h3 class="resource_group">Deformable Models (Lectures 6 and 7)</h3>
+    <ul>
+      <li>Andrew Witkin and David Baraff. <i>Physically Based Modeling</i>, online SIGGRAPH 2001 course notes.
+        Cited in lecture. The Pixar address in the slides now redirects to a general Pixar page, so use the
+        Internet Archive copy of the
+        <a href="https://web.archive.org/web/20220818081051/https://graphics.pixar.com/pbm2001/index.html" target="_blank" rel="noopener">course
+          index</a>, in particular the
+        <a href="https://web.archive.org/web/20240615182116/https://graphics.pixar.com/pbm2001/pdf/slidese.pdf" target="_blank" rel="noopener">Cloth
+          and Fur Energy Functions slides</a>, which are the source of the hair bending model and the
+        length-dependent bending stiffness used in lecture. The notes state that chapters may be freely
+        duplicated and distributed.<br>
+        <span class="resource_note">The 1997 Witkin and Baraff notes listed under General are the live companion,
+          but they do not include the cloth and fur material.</span></li>
+      <li>David Baraff and Andrew Witkin. <a href="https://doi.org/10.1145/280814.280821" target="_blank" rel="noopener"><i>Large
+            Steps in Cloth Simulation</i></a>. SIGGRAPH 98.
+        <a href="https://www.cs.cmu.edu/~baraff/papers/sig98.pdf" target="_blank" rel="noopener">Author's PDF</a>.<br>
+        <span class="resource_note">Where the energy, constraint function, and Jacobian formulation used in these
+          lectures comes from, together with the implicit integration that makes stiff cloth practical.</span></li>
+      <li>Rasmus Tamstorf and Eitan Grinspun. <a href="https://doi.org/10.1016/j.gmod.2013.07.001" target="_blank" rel="noopener"><i>Discrete
+            Bending Forces and Their Jacobians</i></a>. Graphical Models, 2013.
+        <a href="https://disneyanimation.com/publications/discrete-bending-forces-and-their-jacobians" target="_blank" rel="noopener">Disney
+          Animation page</a>, with the PDF.<br>
+        <span class="resource_note">Compact closed-form bending derivatives, and the answer to the lecture's
+          "what went wrong" with naive symbolic differentiation.</span></li>
+      <li>Eitan Grinspun, Anil N. Hirani, Mathieu Desbrun, and Peter Schröder. <i>Discrete Shells</i>.
+        Eurographics/SIGGRAPH Symposium on Computer Animation, 2003.
+        <a href="https://multires.caltech.edu/pubs/ds.pdf" target="_blank" rel="noopener">PDF</a> from the Caltech
+        Multi-Res Modeling Group.<br>
+        <span class="resource_note">The dihedral-angle bending model behind the cloth and shell bending slides.</span></li>
+      <li><a href="https://www.dropbox.com/scl/fi/9k6vtiujdtw30pv3ie645/hinge3DBendingEnergy-Gradient.pdf?rlkey=z715p2s3smvgbj330j2cqyny6&amp;dl=0" target="_blank" rel="noopener"><i>Naive
+            Mathematica codegen example</i></a>, linked from the lecture slides.<br>
+        <span class="resource_note">A cautionary tale: differentiating a hinge bending energy symbolically, with no
+          structure imposed, explodes into an unusable number of terms.</span></li>
+      <li>Already listed under General, and worth reading for these lectures: Kim and Eberle,
+        <i>Dynamic Deformables</i>, for how this is done in production; Sifakis and Barbič,
+        <i>FEM Simulation of 3D Deformable Solids</i>, for where mass-spring models give way to continuum
+        mechanics; Nealen et al., <i>Physically Based Deformable Models in Computer Graphics</i>, as a survey;
+        and Müller et al., <i>Position Based Dynamics</i>, with the Bender et al. survey, for the position-level
+        relatives of the area springs used in P2.</li>
     </ul>
 
     <div>&nbsp;</div>
