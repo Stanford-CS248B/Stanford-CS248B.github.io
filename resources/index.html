@@ -332,6 +332,50 @@
       </li>
     </ul>
 
+    <h3 class="resource_group">Deformable Collision Processing (Lectures 8 and 9)</h3>
+    <ul>
+      <li>Cem Yuksel. <a href="https://doi.org/10.1145/3543865" target="_blank" rel="noopener"><i>High-Performance
+            Polynomial Root Finding for Graphics</i></a>. Proceedings of the ACM on Computer Graphics and
+        Interactive Techniques, 2022.
+        <a href="https://www.cemyuksel.com/research/polynomials/" target="_blank" rel="noopener">Author's page</a>,
+        with code.<br>
+        <span class="resource_note">Cited in lecture. Why the textbook root formulas are not good enough when
+          collision detection generates billions of polynomials.</span></li>
+      <li>Xavier Provot. <a href="https://doi.org/10.1007/978-3-7091-6874-5_13" target="_blank" rel="noopener"><i>Collision
+            and Self-Collision Handling in Cloth Model Dedicated to Design Garments</i></a>. Computer Animation and
+        Simulation '97, Eurographics.<br>
+        <span class="resource_note">The classic cloth collision pipeline these lectures descend from.</span></li>
+      <li>David Harmon, Etienne Vouga, Rasmus Tamstorf, and Eitan Grinspun.
+        <a href="https://doi.org/10.1145/1360612.1360622" target="_blank" rel="noopener"><i>Robust Treatment of
+            Simultaneous Collisions</i></a>. ACM Transactions on Graphics, 2008.<br>
+        <span class="resource_note">What to do when the iterative impulse loop will not converge, and why the order
+          collisions are processed in matters.</span></li>
+      <li>Minchen Li, Zachary Ferguson, Teseo Schneider, Timothy Langlois, Denis Zorin, Daniele Panozzo, and
+        Chenfanfu Jiang. <a href="https://doi.org/10.1145/3386569.3392425" target="_blank" rel="noopener"><i>Incremental
+            Potential Contact: Intersection- and Inversion-free Large Deformation Dynamics</i></a>. ACM Transactions
+        on Graphics, 2020.<br>
+        <span class="resource_note">A modern alternative that guarantees no interpenetration, rather than detecting
+          and repairing it.</span></li>
+      <li>Also listed above, and central to these lectures:
+        <ul>
+          <li>Bridson, Fedkiw, and Anderson, <a href="https://doi.org/10.1145/566654.566623" target="_blank" rel="noopener"><i>Robust
+                Treatment of Collisions, Contact and Friction for Cloth Animation</i></a> (under Lecture 3): the
+            reference for combining impulses, repulsion forces, and a fallback for the hard cases.</li>
+          <li>Wang, <a href="https://doi.org/10.1145/2601097.2601114" target="_blank" rel="noopener"><i>Defending
+                Continuous Collision Detection against Errors</i></a>, and Kaufman et al.,
+            <a href="https://doi.org/10.1145/2601097.2601100" target="_blank" rel="noopener"><i>Adaptive Nonlinearity
+                for Collisions in Complex Rod Assemblies</i></a> (under Lecture 5): floating-point robustness in
+            exactly these tests.</li>
+          <li>Baraff and Witkin, <a href="https://doi.org/10.1145/280814.280821" target="_blank" rel="noopener"><i>Large
+                Steps in Cloth Simulation</i></a> (under Deformable Models): the implicit integration that closes
+            the lecture, and the constraint filtering that inverse-mass filtering descends from.</li>
+          <li>Ascher and Petzold, <a href="https://doi.org/10.1137/1.9781611971392" target="_blank" rel="noopener"><i>Computer
+                Methods for Ordinary Differential Equations and Differential-Algebraic Equations</i></a> (under
+            Lecture 2): stiffness and implicit methods in general.</li>
+        </ul>
+      </li>
+    </ul>
+
     <div>&nbsp;</div>
   </div>
 </body>
