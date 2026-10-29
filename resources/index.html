@@ -510,6 +510,48 @@
           skeleton.</span></li>
     </ul>
 
+    <h3 class="resource_group">Inverse Kinematics (Lecture 12)</h3>
+    <ul>
+      <li>Samuel R. Buss. <a href="https://mathweb.ucsd.edu/~sbuss/ResearchWeb/ikmethods/iksurvey.pdf" target="_blank" rel="noopener"><i>Introduction
+            to Inverse Kinematics with Jacobian Transpose, Pseudoinverse and Damped Least Squares
+            Methods</i></a>. University of California, San Diego. Free PDF from the author.<br>
+        <span class="resource_note">The clearest short treatment of the Jacobian methods the lecture builds on,
+          including what to do when the Jacobian is near singular.</span></li>
+      <li>Andreas Aristidou and Joan Lasenby. <a href="https://doi.org/10.1016/j.gmod.2011.05.003" target="_blank" rel="noopener"><i>FABRIK:
+            A Fast, Iterative Solver for the Inverse Kinematics Problem</i></a>. Graphical Models, 2011.
+        Author's <a href="https://andreasaristidou.com/FABRIK" target="_blank" rel="noopener">FABRIK page</a> and
+        <a href="https://andreasaristidou.com/publications/papers/FABRIK.pdf" target="_blank" rel="noopener">PDF</a>,
+        both linked from the slides.<br>
+        <span class="resource_note">The heuristic alternative shown in lecture: no Jacobian, no optimization, just
+          repeated projection onto lines.</span></li>
+      <li>Ladislav Kavan, Steven Collins, Ji&#345;&iacute; &#381;&aacute;ra, and Carol O'Sullivan.
+        <a href="https://doi.org/10.1145/1230100.1230107" target="_blank" rel="noopener"><i>Skinning with Dual
+            Quaternions</i></a>. Symposium on Interactive 3D Graphics and Games, 2007.<br>
+        <span class="resource_note">The standard fix for the candy-wrapper and collapsing-joint artifacts of linear
+          blend skinning that the lecture demonstrates.</span></li>
+      <li>Matthew Loper, Naureen Mahmood, Javier Romero, Gerard Pons-Moll, and Michael J. Black.
+        <a href="https://doi.org/10.1145/2816795.2818013" target="_blank" rel="noopener"><i>SMPL: A Skinned
+            Multi-Person Linear Model</i></a>. ACM Transactions on Graphics, 2015.
+        <a href="https://smpl.is.tue.mpg.de/" target="_blank" rel="noopener">Project page</a>.<br>
+        <span class="resource_note">Cited in lecture. The learned body model behind most of the human motion work
+          below.</span></li>
+      <li>Yiming Xie, Varun Jampani, Lei Zhong, Deqing Sun, and Huaizu Jiang.
+        <a href="https://proceedings.iclr.cc/paper_files/paper/2024/hash/7827290f07f63485b849b66cfa3e5dd0-Abstract-Conference.html" target="_blank" rel="noopener"><i>OmniControl:
+            Control Any Joint at Any Time for Human Motion Generation</i></a>. International Conference on Learning
+        Representations, 2024. <a href="https://arxiv.org/abs/2310.08580" target="_blank" rel="noopener">arXiv
+          version</a>.<br>
+        <span class="resource_note">The text-to-motion results shown in lecture, where spatial constraints on any
+          joint at any time play the role the pin constraints play in P3.</span></li>
+      <li>Setareh Cohan, Guy Tevet, Daniele Reda, Xue Bin Peng, and Michiel van de Panne.
+        <a href="https://doi.org/10.1145/3641519.3657414" target="_blank" rel="noopener"><i>Flexible Motion
+            In-betweening with Diffusion Models</i></a>. SIGGRAPH 2024.<br>
+        <span class="resource_note">The in-betweening example that closes the lecture.</span></li>
+      <li>Also listed above: Lynch and Park,
+        <a href="https://hades.mech.northwestern.edu/index.php/Modern_Robotics" target="_blank" rel="noopener"><i>Modern
+            Robotics</i></a> (under Lecture 11), whose Chapter 6 is a full treatment of inverse kinematics,
+        including the Newton-Raphson and damped least-squares methods.</li>
+    </ul>
+
     <div>&nbsp;</div>
   </div>
 </body>
