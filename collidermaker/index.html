@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Collider Maker</title>
+<style>
+	:root {
+		--bg: #f6f3ee; --panel: #ffffff; --ink: #222; --muted: #6b6b6b; --line: #ddd6cc; --accent: #2f7d55; --disk: #d23c3c;
+	}
+	* { box-sizing: border-box; }
+	body { margin: 0; font: 14px/1.4 system-ui, -apple-system, Segoe UI, sans-serif; background: var(--bg); color: var(--ink); }
+	header { padding: 14px 20px 6px; }
+	header h1 { margin: 0; font-size: 20px; }
+	header p { margin: 4px 0 0; color: var(--muted); }
+	main { display: grid; grid-template-columns: 300px 1fr; gap: 16px; padding: 12px 20px 20px; }
+	@media (max-width: 760px) { main { grid-template-columns: 1fr; } }
+	.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px; }
+	label { display: block; margin: 10px 0 2px; font-weight: 600; }
+	.row { display: flex; align-items: center; gap: 8px; }
+	.row input[type=range] { flex: 1; }
+	.val { min-width: 44px; text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
+	.check { font-weight: 400; display: flex; gap: 6px; align-items: center; margin-top: 8px; }
+	#drop { border: 2px dashed var(--line); border-radius: 8px; padding: 14px; text-align: center; color: var(--muted); cursor: pointer; }
+	#drop.over { border-color: var(--accent); color: var(--accent); }
+	.samples { display: flex; align-items: center; gap: 6px; margin-top: 8px; color: var(--muted); }
+	.samples span { margin-right: 2px; white-space: nowrap; }
+	button.sample { width: 36px; height: 36px; flex: none; padding: 3px; background: white; border: 1px solid var(--line); }
+	button.sample:hover { border-color: var(--accent); }
+	button.sample.on { border: 2px solid var(--accent); padding: 2px; }
+	button.sample img { width: 100%; height: 100%; object-fit: contain; display: block; }
+	#view { display: flex; flex-direction: column; gap: 12px; }
+	#canvasWrap { background: repeating-conic-gradient(#e9e4dc 0% 25%, #f6f3ee 0% 50%) 50% / 20px 20px; border-radius: 10px; border: 1px solid var(--line); display: flex; justify-content: center; align-items: center; min-height: 420px; }
+	canvas { max-width: 100%; }
+	#stats { color: var(--muted); }
+	textarea { width: 100%; height: 190px; font: 12px/1.35 ui-monospace, Consolas, monospace; border: 1px solid var(--line); border-radius: 8px; padding: 8px; background: #fbfaf8; }
+	button { font: inherit; padding: 7px 12px; border-radius: 8px; border: 1px solid var(--accent); background: var(--accent); color: white; cursor: pointer; }
+	button.secondary { background: white; color: var(--accent); }
+	.buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+	small { color: var(--muted); }
+	.viewbar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 18px; padding: 10px 14px; }
+	.viewbar .check { margin: 0; }
+	.viewbar .grow { flex: 1; min-width: 220px; }
+	.viewbar .grow input { flex: 1; }
+	.key { color: var(--muted); font-size: 12px; margin-left: 4px; }
+	.key i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin: 0 3px 0 6px; vertical-align: -1px; }
+	.key i.red { background: #e02828; } .key i.blue { background: #2a62e6; }
+	#about { margin: 0 20px 20px; }
+	#about summary { cursor: pointer; font-weight: 600; font-size: 15px; }
+	#about h4 { margin: 1rem 0 0.25rem; }
+	#about ol.refs { padding-left: 1.5em; font-size: 0.85rem; }
+	#about ol.refs li { margin-bottom: 0.3rem; }
+	footer { margin: 0 20px 24px; color: var(--muted); font-size: 12px; }
+</style>
+</head>
+<body>
+<header>
+	<h1>🫧 Collider Maker</h1>
+	<p>Turn a picture into a Trick Shot character: disks for collisions, and the picture itself as the art.</p>
+</header>
+<main>
+	<section class="panel">
+		<div id="drop">Drop an image here, or click to choose one<br><small>PNG with transparency works best; line drawings get their inside filled</small></div>
+		<input id="file" type="file" accept="image/*" hidden>
+	<div class="samples" id="samples"><span>Or try:</span></div>
+
+		<label>Disks (at most)</label>
+		<div class="row"><input id="maxDisks" type="range" min="1" max="30" value="16"><span class="val" id="maxDisksV"></span></div>
+		<label>Smallest disk (% of height)</label>
+		<div class="row"><input id="minR" type="range" min="0.5" max="15" step="0.5" value="1.5"><span class="val" id="minRV"></span></div>
+		<label>Coverage goal</label>
+		<div class="row"><input id="coverage" type="range" min="70" max="99" value="98"><span class="val" id="coverageV"></span></div>
+		<label>Character height (world units)</label>
+		<div class="row"><input id="height" type="range" min="0.05" max="0.4" step="0.01" value="0.15"><span class="val" id="heightV"></span></div>
+
+		<label>Shape from</label>
+		<div class="row">
+			<select id="mode"><option value="auto">auto</option><option value="alpha">transparency</option><option value="luminance">dark pixels</option></select>
+		</div>
+		<label>Darkness threshold</label>
+		<div class="row"><input id="threshold" type="range" min="10" max="250" value="160"><span class="val" id="thresholdV"></span></div>
+		<label class="check"><input id="fill" type="checkbox" checked> Fill the inside of outlines</label>
+		<label class="check"><input id="invert" type="checkbox"> Invert (light shape on dark)</label>
+	</section>
+
+	<section id="view">
+		<div class="panel viewbar">
+			<span>View:</span>
+			<span class="row grow">Picture <input id="balance" type="range" min="0" max="100" value="50"> Disks</span>
+			<label class="check"><input id="errors" type="checkbox"> Coverage errors <span class="key"><i class="red"></i>missed <i class="blue"></i>spills out</span></label>
+			<label class="check"><input id="showMask" type="checkbox"> Shape mask</label>
+		</div>
+		<div id="canvasWrap"><canvas id="canvas" width="520" height="520"></canvas></div>
+		<div id="stats">Load an image to start.</div>
+		<div class="panel">
+			<div class="buttons">
+				<button id="copy">Copy code</button>
+				<button id="sprite" class="secondary">Download sprite PNG</button>
+			</div>
+			<p><small>Put the sprite PNG in your sketch (on OpenProcessing: upload it as a file), then paste the code into
+				<code>makeMyCharacter()</code> in MyTrickShot.js, e.g. <code>return new Body(...)</code>.
+				Mass and spin inertia come from the disks, so use enough disks to cover the shape.</small></p>
+			<textarea id="code" readonly></textarea>
+		</div>
+	</section>
+</main>
+
+<details id="about" class="panel">
+	<summary>About how Collider Maker works</summary>
+
+	<p>Trick Shot bodies collide as a <em>union of disks</em>: the simulator checks each disk against the scene's signed
+		distance field with one distance query at its center. Interactive manipulation of a simulation needs its
+		derivatives, and contacts that jump abruptly from one part of a body to another make them discontinuous [1];
+		Trick Shot blends the contacts of neighboring disks smoothly (a smooth min) to avoid that. Collider Maker turns a
+		picture into such a set of disks in four steps, and keeps the picture itself as the body's art. The disks are
+		fitted on a copy of the picture scaled to 220 pixels on its longest side.</p>
+
+	<h4>1. The shape mask</h4>
+	<p>Each pixel is <em>inside</em> or <em>outside</em> the shape. With a transparent PNG, a pixel is inside if it is
+		mostly opaque. Otherwise a pixel is "ink" if it is darker than the threshold. With <b>Fill the inside of
+		outlines</b> on (the default), the background is flooded from the image border, and every pixel the flood cannot
+		reach is inside, which fills in outline drawings. An outline with a gap lets the flood leak in: close the gap in
+		the picture, or use a transparent PNG.</p>
+
+	<h4>2. The distance transform</h4>
+	<p>For every inside pixel, the tool computes the exact Euclidean distance <i>D</i> to the nearest outside pixel, so
+		a disk centered there with radius <i>D</i> minus half a pixel fits inside the shape. It uses Felzenszwalb and
+		Huttenlocher's linear-time algorithm, which computes each row or column's distances as the lower envelope of
+		parabolas and handles 2D as a sequence of these 1D passes [2].</p>
+
+	<h4>3. Candidate centers on the medial axis</h4>
+	<p>Good disk centers lie on the shape's <em>medial axis</em> (its skeleton): the centers of the maximal inscribed
+		disks, which touch the boundary in two or more places, and which lie along the ridges of the distance map [3].
+		The tool keeps a simple pixel approximation of these ridges: a pixel is a candidate if its distance is at least
+		that of both its neighbors along some direction (horizontal, vertical or diagonal), and its disk is at least the
+		<b>Smallest disk</b> size. Keeping whole ridge lines, not just their peaks, matters for bumps like a bottle's
+		base lobes, whose ridges rise into the body without peaks of their own.</p>
+
+	<h4>4. Greedy covering</h4>
+	<p>Disks are added one at a time: each step adds the candidate disk that covers the most still-uncovered shape
+		pixels. It stops when it reaches the disk budget or the coverage goal, or when no disk would add more than 0.2%
+		of the shape. This is the classic greedy heuristic for set cover; for covering a whole set, it is guaranteed to
+		use at most a logarithmic factor more sets than the fewest possible [4]. (Here it only approximates that setting,
+		since it stops early and chooses among the candidate disks.) Approximating shapes by spheres is a long-standing
+		approach in graphics: sphere trees for time-critical collision detection [5], including trees built from
+		approximations of the medial axis [6], and shape approximation with Sphere-Meshes [7]. Collider Maker is a
+		simple 2D, single-level version of this idea.</p>
+
+	<h4>What the views and numbers mean</h4>
+	<p>Every disk fits inside the shape, so apart from pixel rounding the disks don't stick out past the picture. The
+		price is that thin parts and the outline's rim are missed. <b>Coverage errors</b> shows, at the fitting
+		resolution, missed shape pixels in red and disk pixels outside the shape in blue (almost always none, since the
+		disks are inscribed). Trick Shot computes mass and spin inertia from the <em>union</em> of the disks, so missed
+		parts make the body slightly lighter than its picture. Its smooth-min contact can also touch slightly before the
+		closest disk does, by at most ln(<i>N</i>)/β for <i>N</i> disks, which is under 2% of the body's size for
+		Trick Shot's characters.</p>
+
+	<h4>Tips</h4>
+	<ul>
+		<li>A body rests on the lowest points of its disks. For a flat base, check that the bottom disks reach the same
+			height; with too few or too large disks, a bumpy base loses its own disks and the body balances on one point.</li>
+		<li>Lower <b>Smallest disk</b> to reach thin parts (arms, antennae); raise <b>Disks</b> to keep them.</li>
+		<li>Fewer disks simulate faster: every disk is checked whenever the body is near an obstacle.</li>
+	</ul>
+
+	<h4>References</h4>
+	<ol class="refs">
+		<li>J. Popović, S. M. Seitz, M. Erdmann, Z. Popović, and A. Witkin, “Interactive Manipulation of Rigid Body
+			Simulations,” in <em>Proceedings of the 27th Annual Conference on Computer Graphics and Interactive Techniques
+			(SIGGRAPH ’00)</em>, pp.&nbsp;209–217, 2000.
+			<a href="https://doi.org/10.1145/344779.344880" target="_blank">doi:10.1145/344779.344880</a></li>
+		<li>P. F. Felzenszwalb and D. P. Huttenlocher, “Distance Transforms of Sampled Functions,” <em>Theory of
+			Computing</em>, vol.&nbsp;8, Article&nbsp;19, pp.&nbsp;415–428, 2012.
+			<a href="https://doi.org/10.4086/toc.2012.v008a019" target="_blank">doi:10.4086/toc.2012.v008a019</a></li>
+		<li>A. Tagliasacchi, T. Delame, M. Spagnuolo, N. Amenta, and A. Telea, “3D Skeletons: A State-of-the-Art Report,”
+			<em>Computer Graphics Forum</em>, vol.&nbsp;35, no.&nbsp;2, pp.&nbsp;573–597, 2016.
+			<a href="https://doi.org/10.1111/cgf.12865" target="_blank">doi:10.1111/cgf.12865</a></li>
+		<li>V. Chvátal, “A Greedy Heuristic for the Set-Covering Problem,” <em>Mathematics of Operations Research</em>,
+			vol.&nbsp;4, no.&nbsp;3, pp.&nbsp;233–235, 1979.
+			<a href="https://doi.org/10.1287/moor.4.3.233" target="_blank">doi:10.1287/moor.4.3.233</a></li>
+		<li>P. M. Hubbard, “Approximating Polyhedra with Spheres for Time-Critical Collision Detection,” <em>ACM Trans.
+			Graph.</em>, vol.&nbsp;15, no.&nbsp;3, pp.&nbsp;179–210, 1996.
+			<a href="https://doi.org/10.1145/231731.231732" target="_blank">doi:10.1145/231731.231732</a></li>
+		<li>G. Bradshaw and C. O'Sullivan, “Adaptive Medial-Axis Approximation for Sphere-Tree Construction,” <em>ACM
+			Trans. Graph.</em>, vol.&nbsp;23, no.&nbsp;1, pp.&nbsp;1–26, 2004.
+			<a href="https://doi.org/10.1145/966131.966132" target="_blank">doi:10.1145/966131.966132</a></li>
+		<li>J.-M. Thiery, É. Guy, and T. Boubekeur, “Sphere-Meshes: Shape Approximation Using Spherical Quadric Error
+			Metrics,” <em>ACM Trans. Graph.</em>, vol.&nbsp;32, no.&nbsp;6, pp.&nbsp;1–12, 2013.
+			<a href="https://doi.org/10.1145/2508363.2508384" target="_blank">doi:10.1145/2508363.2508384</a></li>
+	</ol>
+</details>
+
+<footer>
+	Made for Stanford CS248B (Trick Shot). AI-assisted tool by Doug James using Claude Code. Provided “as is” for
+	educational purposes; no warranty.
+	<a href="https://github.com/dougjam/demos/blob/master/DEMO_DISCLAIMER.md" target="_blank">Full disclaimer</a>.
+	Sample pictures from Openclipart (public domain):
+	<a href="https://openclipart.org/detail/184028/cute-critter" target="_blank">“Cute critter”</a> and
+	<a href="https://openclipart.org/detail/183121/little-robot" target="_blank">“Little robot”</a> by anarres,
+	<a href="https://openclipart.org/detail/191742/blue-lace-easter-egg" target="_blank">“Blue Lace Easter Egg”</a> by Scout, and
+	<a href="https://openclipart.org/detail/185918/sports-bottle" target="_blank">“Sports Bottle”</a> by alastairjtp.
+</footer>
+<script src="colliderFit.js"></script>
+<script src="examples/samples.js"></script>
+<script>
+const WORK = 220; // working resolution for fitting (pixels, longest side)
+const $ = (id) => document.getElementById(id);
+let img = null, imgName = "character";
+let result = null;
+
+for (const id of ["maxDisks", "minR", "coverage", "height", "threshold"]) $(id).addEventListener("input", schedule);
+for (const id of ["mode", "fill", "invert"]) $(id).addEventListener("change", schedule);
+for (const id of ["balance", "errors", "showMask"]) $(id).addEventListener("input", () => result && draw()); // view only
+$("drop").addEventListener("click", () => $("file").click());
+$("file").addEventListener("change", (e) => e.target.files[0] && loadFile(e.target.files[0]));
+$("drop").addEventListener("dragover", (e) => { e.preventDefault(); $("drop").classList.add("over"); });
+$("drop").addEventListener("dragleave", () => $("drop").classList.remove("over"));
+$("drop").addEventListener("drop", (e) => {
+	e.preventDefault();
+	$("drop").classList.remove("over");
+	if (e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
+});
+document.addEventListener("paste", (e) => {
+	const f = [...(e.clipboardData?.files || [])].find(f => f.type.startsWith("image/"));
+	if (f) loadFile(f);
+});
+$("copy").addEventListener("click", () => navigator.clipboard.writeText($("code").value));
+$("sprite").addEventListener("click", downloadSprite);
+
+function loadFile(file) {
+	imgName = file.name.replace(/\.[^.]+$/, "").replace(/[^A-Za-z0-9_-]/g, "_") || "character";
+	loadURL(URL.createObjectURL(file));
+}
+function loadURL(url) {
+	for (const b of document.querySelectorAll("button.sample")) b.classList.toggle("on", b.dataset.img == url);
+	const im = new Image();
+	im.onload = () => { img = im; schedule(); };
+	im.src = url;
+}
+// The sample pictures (examples/samples.js) are data URLs, so they work even from a file:// page.
+function loadSample(s) { imgName = s.name; loadURL(s.url); }
+for (const s of SAMPLES) {
+	const b = document.createElement("button");
+	b.className = "sample";
+	b.title = s.title;
+	b.dataset.img = s.url;
+	b.innerHTML = `<img src="${s.url}" alt="${s.title}">`;
+	b.addEventListener("click", () => loadSample(s));
+	$("samples").append(b);
+}
+// The starting picture: ?img=examples/garlic.png (by path, so it needs a web server), or else the cute critter.
+const param = new URLSearchParams(location.search).get("img");
+if (param) { imgName = param.split("/").pop().replace(/\.[^.]+$/, ""); loadURL(param); }
+else loadSample(SAMPLES[0]);
+
+let timer = null;
+function schedule() {
+	for (const id of ["maxDisks", "minR", "coverage", "height", "threshold"]) {
+		const v = +$(id).value;
+		$(id + "V").textContent = id == "coverage" ? v + "%" : id == "minR" ? v + "%" : v;
+	}
+	clearTimeout(timer);
+	timer = setTimeout(update, 60);
+}
+
+/** Pixels of the image drawn at scale k (k=1: full size). */
+function pixels(k) {
+	const w = Math.max(1, Math.round(img.naturalWidth * k)), h = Math.max(1, Math.round(img.naturalHeight * k));
+	const c = document.createElement("canvas");
+	c.width = w; c.height = h;
+	const g = c.getContext("2d", { willReadFrequently: true });
+	g.drawImage(img, 0, 0, w, h);
+	return { w, h, rgba: g.getImageData(0, 0, w, h).data, canvas: c };
+}
+function maskOptions() {
+	return { threshold: +$("threshold").value, invert: $("invert").checked, fillInterior: $("fill").checked, mode: $("mode").value };
+}
+
+function update() {
+	if (!img) return;
+	try { compute(); } catch (err) {
+		// A picture loaded by URL from a file:// page can't be read back; a dropped or chosen file always can.
+		$("stats").textContent = err.name == "SecurityError"
+			? "The browser won't let this page read that picture (opened from a file?). Drop or choose an image instead."
+			: "Error: " + err.message;
+	}
+}
+function compute() {
+	const t0 = performance.now();
+	// Full-resolution mask: the shape's bounding box (the sprite) and the world scale.
+	const full = pixels(Math.min(1, 1200 / Math.max(img.naturalWidth, img.naturalHeight)));
+	const fullMask = makeMask(full.rgba, full.w, full.h, maskOptions());
+	const box = maskBounds(fullMask, full.w, full.h);
+	if (!box) { $("stats").textContent = "No shape found: try another threshold, Invert, or 'Shape from'."; return; }
+	// Fit at the working resolution:
+	const k = WORK / Math.max(full.w, full.h);
+	const work = pixels(k * full.w / img.naturalWidth);
+	const mask = makeMask(work.rgba, work.w, work.h, maskOptions());
+	const boxH = (box.y1 - box.y0) * k; // shape height in work pixels
+	const fit = fitDisks(mask, work.w, work.h, {
+		maxDisks: +$("maxDisks").value, minRadius: Math.max(1, boxH * +$("minR").value / 100), coverage: +$("coverage").value / 100,
+	});
+	// World coordinates: centered on the shape's bounding box, scaled to the chosen height.
+	const s = +$("height").value / (box.y1 - box.y0); // world units per full-res pixel
+	const cx = (box.x0 + box.x1) / 2, cy = (box.y0 + box.y1) / 2;
+	const r4 = (x) => Math.round(x * 1e4) / 1e4;
+	const disks = fit.disks.map(([x, y, r]) => [r4(((x + 0.5) / k - cx) * s), r4(((y + 0.5) / k - cy) * s), r4(r / k * s)]);
+	const art = { image: imgName + "_sprite.png", x: r4(-(box.x1 - box.x0) / 2 * s), y: r4(-(box.y1 - box.y0) / 2 * s), w: r4((box.x1 - box.x0) * s), h: r4((box.y1 - box.y0) * s) };
+	result = { full, fullMask, box, work, mask, fit, k, s, cx, cy, disks, art, errors: coverageErrors(mask, work.w, work.h, fit.disks) };
+	$("code").value =
+		`// 🫧 Collider Maker: "${imgName}", ${disks.length} disks, ${(100 * fit.coverage).toFixed(0)}% coverage\n` +
+		`new Body([\n${disks.map(d => "\t[" + d.join(", ") + "],").join("\n")}\n], {\n` +
+		`\tart: { image: "${art.image}", x: ${art.x}, y: ${art.y}, w: ${art.w}, h: ${art.h} },\n` +
+		`\tmarker: [0, ${art.y}], // a point to trace (here: the top center)\n})`;
+	const e = result.errors;
+	$("stats").textContent = `${disks.length} disks cover ${(100 * fit.coverage).toFixed(1)}% of the shape · ` +
+		`missed ${(100 * e.under / e.area).toFixed(1)}%, spill out ${(100 * e.over / e.area).toFixed(1)}% (of the shape's area) · ` +
+		`${img.naturalWidth}×${img.naturalHeight} px image · ${(performance.now() - t0).toFixed(0)} ms`;
+	draw();
+}
+
+/** Pixels of the shape no disk covers (under), and disk pixels outside the shape (over), at the working resolution. */
+function coverageErrors(mask, w, h, disks) {
+	const inDisk = new Uint8Array(w * h);
+	for (const [cx, cy, r] of disks)
+		for (let y = Math.max(0, Math.floor(cy - r)); y <= Math.min(h - 1, Math.ceil(cy + r)); y++)
+			for (let x = Math.max(0, Math.floor(cx - r)); x <= Math.min(w - 1, Math.ceil(cx + r)); x++)
+				if ((x - cx) * (x - cx) + (y - cy) * (y - cy) <= r * r) inDisk[y * w + x] = 1;
+	let under = 0, over = 0, area = 0;
+	const map = new Uint8Array(w * h); // 1 = missed, 2 = spills out
+	for (let i = 0; i < w * h; i++) {
+		area += mask[i];
+		if (mask[i] && !inDisk[i]) { map[i] = 1; under++; }
+		if (!mask[i] && inDisk[i]) { map[i] = 2; over++; }
+	}
+	return { map, under, over, area: Math.max(1, area) };
+}
+
+/** A working-resolution overlay image from per-pixel colors. */
+function overlay(w, h, colorOf) {
+	const c = document.createElement("canvas");
+	c.width = w; c.height = h;
+	const g = c.getContext("2d"), id = g.createImageData(w, h);
+	for (let i = 0; i < w * h; i++) {
+		const col = colorOf(i);
+		if (col) for (let ch = 0; ch < 4; ch++) id.data[4 * i + ch] = col[ch];
+	}
+	g.putImageData(id, 0, 0);
+	return c;
+}
+
+function draw() {
+	const cv = $("canvas"), g = cv.getContext("2d");
+	const { full, box, work, mask, k, errors } = result;
+	const t = +$("balance").value / 100; // 0: just the picture … 1: just the disks
+	const showErrors = $("errors").checked;
+	const pad = 20, bw = box.x1 - box.x0, bh = box.y1 - box.y0;
+	const z = Math.min((cv.width - 2 * pad) / bw, (cv.height - 2 * pad) / bh);
+	g.clearRect(0, 0, cv.width, cv.height);
+	g.save();
+	g.translate(cv.width / 2 - (box.x0 + bw / 2) * z, cv.height / 2 - (box.y0 + bh / 2) * z);
+	g.scale(z, z);
+	// The picture, fading out as the balance moves toward the disks (and dimmed under the error view):
+	g.globalAlpha = (showErrors ? 0.35 : 1) * Math.min(1, 2 * (1 - t));
+	g.imageSmoothingEnabled = true;
+	g.drawImage(full.canvas, 0, 0);
+	g.globalAlpha = 1;
+	g.imageSmoothingEnabled = false;
+	if ($("showMask").checked)
+		g.drawImage(overlay(work.w, work.h, (i) => mask[i] ? [47, 125, 85, 110] : null), 0, 0, full.w, full.h);
+	if (showErrors)
+		g.drawImage(overlay(work.w, work.h, (i) => errors.map[i] == 1 ? [224, 40, 40, 230] : errors.map[i] == 2 ? [42, 98, 230, 230] : null), 0, 0, full.w, full.h);
+	// The disks, fading in as the balance moves toward them (none at all at the "Picture" end):
+	const show = Math.min(1, 3 * t); // outlines reach full strength a third of the way along
+	const fillA = showErrors ? 0 : 0.6 * t, lineA = show;
+	for (const [x, y, r] of (t > 0 ? result.fit.disks : [])) {
+		g.beginPath();
+		g.arc((x + 0.5) / k, (y + 0.5) / k, r / k, 0, 2 * Math.PI);
+		if (fillA > 0) {
+			g.fillStyle = `rgba(210, 60, 60, ${fillA / 2})`; // overlaps add up, so each disk gets half
+			g.fill();
+		}
+		g.lineWidth = (1 + 1.5 * t) / z;
+		g.strokeStyle = showErrors ? `rgba(30, 30, 30, ${0.7 * show})` : `rgba(200, 30, 30, ${lineA})`;
+		g.stroke();
+	}
+	g.strokeStyle = `rgba(0,0,0,${0.25 * show})`; // the sprite's bounding box (hidden at the "Picture" end too)
+	g.setLineDash([4 / z, 4 / z]);
+	g.lineWidth = 1 / z;
+	g.strokeRect(box.x0, box.y0, bw, bh);
+	g.restore();
+}
+
+/** The sprite: the shape's bounding box, with everything outside the shape made transparent. */
+function downloadSprite() {
+	if (!result) return;
+	const { full, fullMask, box } = result;
+	const bw = box.x1 - box.x0, bh = box.y1 - box.y0;
+	const c = document.createElement("canvas");
+	c.width = bw; c.height = bh;
+	const g = c.getContext("2d"), id = g.createImageData(bw, bh);
+	for (let y = 0; y < bh; y++)
+		for (let x = 0; x < bw; x++) {
+			const i = (y + box.y0) * full.w + (x + box.x0), o = 4 * (y * bw + x);
+			for (let ch = 0; ch < 3; ch++) id.data[o + ch] = full.rgba[4 * i + ch];
+			id.data[o + 3] = fullMask[i] ? full.rgba[4 * i + 3] : 0;
+		}
+	g.putImageData(id, 0, 0);
+	const a = document.createElement("a");
+	a.download = imgName + "_sprite.png";
+	a.href = c.toDataURL("image/png");
+	a.click();
+}
+schedule();
+</script>
+</body>
+</html>
